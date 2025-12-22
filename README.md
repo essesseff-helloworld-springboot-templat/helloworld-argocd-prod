@@ -1,6 +1,6 @@
-# hello-world - Argo CD Application (PROD)
+# helloworld - Argo CD Application (PROD)
 
-This repository contains the Argo CD Application manifest for the **PROD** environment of the hello-world essesseff app.
+This repository contains the Argo CD Application manifest for the **PROD** environment of the helloworld essesseff app.
 
 ## See Also
 
@@ -13,15 +13,15 @@ This repository contains the Argo CD Application manifest for the **PROD** envir
 ## Repository Structure
 
 ```
-hello-world-argocd-prod/
+helloworld-argocd-prod/
 ├── app-of-apps.yaml                  # Root Application
 ├── argocd/
-│   └── hello-world-prod-application.yaml  # PROD environment Application manifest (auto-synced)
+│   └── helloworld-prod-application.yaml  # PROD environment Application manifest (auto-synced)
 ├── argocd-repository-secret.yaml     # Argo CD repository secrets
 ├── ghcr-credentials-secret.yaml      # GHCR credentials (set once per K8s cluster for organization)
 ├── notifications-configmap.yaml      # Argo CD notifications configuration
 ├── setup-argocd-cluster.sh           # Argo CD K8s setup script 
-├── setup-argocd.sh                   # Argo CD hello-world-prod essesseff app setup script 
+├── setup-argocd.sh                   # Argo CD helloworld-prod essesseff app setup script 
 └── README.md                          # This file
 ```
 
@@ -42,15 +42,15 @@ hello-world-argocd-prod/
    ./setup-argocd-cluster.sh
    ```
    
-### Deploy hello-world-prod essesseff App to Argo CD
+### Deploy helloworld-prod essesseff App to Argo CD
 
 1. **Configure Argo CD repository access**:
    
    Edit argocd-repository-secret.yaml with your GitHub Argo CD machine username and token
   
    This creates secrets for Argo CD to access:
-   - `hello-world-argocd-prod` repository (to read Application manifests)
-   - `hello-world-config-prod` repository (to read Helm charts and values)
+   - `helloworld-argocd-prod` repository (to read Application manifests)
+   - `helloworld-config-prod` repository (to read Helm charts and values)
 
 2. **Configure Argo CD access to GitHub Container Registry (GHCR)**:
    
@@ -60,8 +60,8 @@ hello-world-argocd-prod/
 
 3. **Configure Argo CD notifications secrets**:
 
-   Request the notifications-secret.yaml file contents from the essesseff UX for hello-world here:
-   https://www.essesseff.com/home/YOUR_essesseff_TEAM_ACCOUNT/apps/hello-world/settings
+   Request the notifications-secret.yaml file contents from the essesseff UX for helloworld here:
+   https://www.essesseff.com/home/YOUR_essesseff_TEAM_ACCOUNT/apps/helloworld/settings
 
    Save the contents to ./notifications-secret.yaml 
 
@@ -71,7 +71,7 @@ hello-world-argocd-prod/
    ./setup-argocd.sh
    ```
 
-   This script applies all secrets, configmaps, Argo CD application definitions, etc. for hello-world PROD.
+   This script applies all secrets, configmaps, Argo CD application definitions, etc. for helloworld PROD.
 
 5. **Verify in Argo CD UI**:
    ```bash
@@ -80,21 +80,21 @@ hello-world-argocd-prod/
    ```
    
    You should see:
-   - `hello-world-argocd-prod` - Root Application (watches this repository)
-   - `hello-world-prod` - Environment Application (auto-synced by root Application)
+   - `helloworld-argocd-prod` - Root Application (watches this repository)
+   - `helloworld-prod` - Environment Application (auto-synced by root Application)
 
 6. **Access the deployed application**:
    ```bash
-   kubectl port-forward service/hello-world-prod 8081:80 -n essesseff-hello-world-flask-template
+   kubectl port-forward service/helloworld-prod 8081:80 -n essesseff-helloworld-springboot-templat
    # Access: http://localhost:8081
    ```
 
 ## Application Details
 
-- **Name**: `hello-world-prod`
+- **Name**: `helloworld-prod`
 - **Namespace**: `argocd`
-- **Source Repository**: `hello-world-config-prod`
-- **Destination Namespace**: `essesseff-hello-world-flask-template`
+- **Source Repository**: `helloworld-config-prod`
+- **Destination Namespace**: `essesseff-helloworld-springboot-templat`
 - **Sync Policy**: Automated with prune and self-heal enabled
 
 ## Deployment Process
@@ -107,9 +107,9 @@ hello-world-argocd-prod/
 
 ## Repository URLs
 
-- **Source**: `https://github.com/essesseff-hello-world-flask-template/hello-world`
-- **Config PROD**: `https://github.com/essesseff-hello-world-flask-template/hello-world-config-prod`
-- **Argo CD PROD**: `https://github.com/essesseff-hello-world-flask-template/hello-world-argocd-prod` (this repo)
+- **Source**: `https://github.com/essesseff-helloworld-springboot-templat/helloworld`
+- **Config PROD**: `https://github.com/essesseff-helloworld-springboot-templat/helloworld-config-prod`
+- **Argo CD PROD**: `https://github.com/essesseff-helloworld-springboot-templat/helloworld-argocd-prod` (this repo)
 
 ## essesseff Integration
 
@@ -134,7 +134,7 @@ kubectl patch configmap argocd-cm -n argocd --type merge -p '{"data":{"timeout.r
 This will:
 - Set base polling interval to 60 seconds
 - Add up to 10 seconds of jitter (total: 60-70 seconds)
-- Allow Argo CD to detect changes in `argocd/hello-world-prod-application.yaml` more quickly
+- Allow Argo CD to detect changes in `argocd/helloworld-prod-application.yaml` more quickly
 
 ## How It Works
 

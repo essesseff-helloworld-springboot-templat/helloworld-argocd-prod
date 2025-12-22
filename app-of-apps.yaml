@@ -1,16 +1,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: hello-world-argocd-prod
+  name: helloworld-argocd-prod
   namespace: argocd
   labels:
-    app: hello-world
+    app: helloworld
     environment: prod
     essesseff: "true"
 spec:
   project: default
   source:
-    repoURL: https://github.com/essesseff-hello-world-flask-template/hello-world-argocd-prod
+    repoURL: https://github.com/essesseff-helloworld-springboot-templat/helloworld-argocd-prod
     targetRevision: main
     path: argocd
   destination:
